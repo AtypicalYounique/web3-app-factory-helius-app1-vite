@@ -143,3 +143,124 @@ ul.ticks li:before { content: "→"; position: absolute; left: 0; color: var(--a
 .toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); background: var(--card-2); border: 1px solid var(--line-2); padding: 10px 16px; border-radius: var(--radius-pill); font-size: 13px; color: #fff; opacity: 0; transition: opacity .25s; pointer-events: none; }
 .toast.show { opacity: 1; }
 .branding { margin-top: 28px; color: var(--muted); font-size: 12px; }
+
+/* Screen-hidden PDF helpers */
+.pdf-date, .pdf-footer { display: none; }
+
+/* Print stylesheet — produces clean PDF via window.print() / Save as PDF */
+@media print {
+  /* Force light, readable theme */
+  :root {
+    --bg: #ffffff !important;
+    --card: #ffffff !important;
+    --card-2: #ffffff !important;
+    --text: #000000 !important;
+    --muted: #333333 !important;
+    --line: #cccccc !important;
+    --line-2: #cccccc !important;
+  }
+  html, body {
+    background: #ffffff !important;
+    background-image: none !important;
+    color: #000000 !important;
+  }
+  body::before, body::after { display: none !important; content: none !important; }
+  .wrap {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Hide UI chrome */
+  .pillgroup button,
+  .btn,
+  .toast,
+  .eyebrow,
+  .brand-chip,
+  .footer-note,
+  .branding,
+  .actions-card,
+  .attribution {
+    display: none !important;
+  }
+
+  /* Show PDF-only elements */
+  .pdf-date,
+  .pdf-footer {
+    display: block !important;
+    color: #000000 !important;
+  }
+  .pdf-date {
+    font-size: 11pt;
+    color: #555555 !important;
+    margin: 8pt 0 12pt 0;
+  }
+  .pdf-footer {
+    margin-top: 24pt;
+    padding-top: 10pt;
+    border-top: 1px solid #cccccc;
+    font-size: 9pt;
+    color: #555555 !important;
+    line-height: 1.4;
+  }
+
+  /* Card styling for print */
+  .card {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #cccccc !important;
+    border-radius: 6pt !important;
+    padding: 12pt !important;
+    margin-bottom: 10pt !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .card * {
+    color: #000000 !important;
+  }
+
+  /* Logo size for print */
+  .brand-bar {
+    margin-bottom: 8pt !important;
+    border: none !important;
+  }
+  .brand-bar svg {
+    height: 40pt !important;
+    width: auto !important;
+  }
+
+  /* Headings */
+  h1 { font-size: 18pt !important; color: #000000 !important; margin: 6pt 0; }
+  h2 { font-size: 13pt !important; color: #000000 !important; margin: 4pt 0 8pt 0; }
+  h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+
+  /* Score ring/block */
+  .score-block, ul.ticks { break-inside: avoid; page-break-inside: avoid; }
+  .score-ring {
+    border: 2px solid #000000 !important;
+    color: #000000 !important;
+  }
+  .score-ring div { color: #000000 !important; }
+
+  /* Tag (band label) — keep band color visible */
+  .tag {
+    color: #000000 !important;
+    border: 1px solid #000000 !important;
+    background: #f5f5f5 !important;
+  }
+
+  /* Lists */
+  ul.ticks { padding-left: 18pt !important; }
+  ul.ticks li {
+    color: #000000 !important;
+    margin-bottom: 4pt;
+    page-break-inside: avoid;
+  }
+
+  /* Hide question form card during print (Your inputs card is shown instead) */
+  .form-card { display: none !important; }
+
+  /* Page settings */
+  @page { margin: 0.5in; }
+}

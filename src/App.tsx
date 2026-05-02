@@ -333,7 +333,7 @@ export default function App() {
       <h1>{APP_TITLE}</h1>
       <p className="lede">{APP_TAGLINE}</p>
 
-      <div className="card">
+      <div className="card form-card">
         {Q.map((q) => (
           <div key={q.id} style={{ marginBottom: 16 }}>
             <label>{q.label}</label>
@@ -372,6 +372,23 @@ export default function App() {
 
       {showResult && allAnswered && (
         <div ref={resultRef}>
+          <div className="pdf-date">
+            Generated {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          </div>
+
+          <div className="card">
+            <h2>Your inputs</h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 14, lineHeight: 1.6 }}>
+              {Q.map((q) =>
+                answers[q.id] ? (
+                  <div key={q.id}>
+                    <strong>{q.label.replace(/\?$/, "")}:</strong> {answers[q.id]}
+                  </div>
+                ) : null
+              )}
+            </div>
+          </div>
+
           <div className="card">
             <div className="score-block">
               <div className="score-ring" style={ringStyle}>
@@ -423,15 +440,22 @@ export default function App() {
             </ul>
           </div>
 
-          <div className="card">
+          <div className="card actions-card">
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
               <button className="btn" onClick={onCopy}>
                 Copy this brief
+              </button>
+              <button className="btn secondary" onClick={() => window.print()}>
+                Download PDF
               </button>
               <button className="btn secondary" onClick={reset}>
                 Run again with new inputs
               </button>
             </div>
+          </div>
+
+          <div className="pdf-footer">
+            An independent tool by Ryan Lacerda. Not affiliated with {BRAND.company}. Visit {BRAND.company.toLowerCase()} at {BRAND.homepage}.
           </div>
         </div>
       )}
