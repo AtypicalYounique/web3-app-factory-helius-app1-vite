@@ -1,0 +1,18 @@
+entrypoint = "src/App.tsx"
+modules = ["nodejs-20"]
+hidden = [".config", "package-lock.json"]
+
+run = "npm run dev"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+build = ["sh", "-c", "npm ci && npm run build"]
+run = ["sh", "-c", "npm run preview"]
+deploymentTarget = "static"
+publicDir = "dist"
+
+[[ports]]
+localPort = 8080
+externalPort = 80
