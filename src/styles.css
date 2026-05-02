@@ -1,4 +1,4 @@
-/* Helius brand fidelity — extracted from helius.dev (2026-05-02)
+/* Helius brand fidelity , extracted from helius.dev (2026-05-02)
  * Dark mode, warm orange CTA pills, body #09090b, accent #E84125.
  * Display: Inter Tight (Lausanne substitute). Body: Inter (Geist Sans substitute).
  */
@@ -43,7 +43,7 @@ a { color: var(--accent-2); text-decoration: none; }
 a:hover { color: var(--accent); }
 .wrap { max-width: 880px; margin: 0 auto; padding: 24px 20px 80px; position: relative; z-index: 1; }
 
-/* Brand bar — top-left logo + right-side disclaimer chip */
+/* Brand bar , top-left logo + right-side disclaimer chip */
 .brand-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 36px; gap: 16px; }
 .brand-logo { display: inline-flex; align-items: center; height: 32px; opacity: 0.95; transition: opacity .15s; }
 .brand-logo:hover { opacity: 1; }
@@ -147,7 +147,7 @@ ul.ticks li:before { content: "→"; position: absolute; left: 0; color: var(--a
 /* Screen-hidden PDF helpers */
 .pdf-date, .pdf-footer { display: none; }
 
-/* Print stylesheet — produces clean PDF via window.print() / Save as PDF */
+/* Print stylesheet , produces clean PDF via window.print() / Save as PDF */
 @media print {
   /* Force light, readable theme */
   :root {
@@ -243,7 +243,7 @@ ul.ticks li:before { content: "→"; position: absolute; left: 0; color: var(--a
   }
   .score-ring div { color: #000000 !important; }
 
-  /* Tag (band label) — keep band color visible */
+  /* Tag (band label) , keep band color visible */
   .tag {
     color: #000000 !important;
     border: 1px solid #000000 !important;

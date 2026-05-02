@@ -3,7 +3,7 @@ import { BRAND } from "./brand";
 
 const APP_TITLE = "Solana Transaction Landing & RPC Reliability Risk Mapper";
 const APP_TAGLINE =
-  "A directional, pattern-based diagnostic for Solana dApp and trading teams thinking about whether their current RPC + transaction landing setup is good enough — informed by patterns Helius and other Solana infra teams talk about publicly.";
+  "A directional, pattern-based diagnostic for Solana dApp and trading teams thinking about whether their current RPC + transaction landing setup is good enough, informed by patterns Helius and other Solana infra teams talk about publicly.";
 
 type Question = { id: string; label: string; type: "pills"; options: string[] };
 
@@ -28,7 +28,7 @@ const Q: Question[] = [
     options: [
       "Low (a few seconds is fine)",
       "Medium (sub-second feels right)",
-      "High (every slot matters — perps, sniping, MEV)",
+      "High (every slot matters: perps, sniping, MEV)",
     ],
   },
   {
@@ -89,7 +89,7 @@ const Q: Question[] = [
       "Stale balances or stale UI reads",
       "Slow page loads / slow event updates",
       "Failed mints, fills, or claims at peak",
-      "Nothing major — just nice-to-haves",
+      "Nothing major, just nice-to-haves",
     ],
   },
   {
@@ -120,7 +120,7 @@ const RISK: Record<string, Record<string, number>> = {
   txnSensitivity: {
     "Low (a few seconds is fine)": 0.5,
     "Medium (sub-second feels right)": 1.5,
-    "High (every slot matters — perps, sniping, MEV)": 3,
+    "High (every slot matters: perps, sniping, MEV)": 3,
   },
   txnVolume: { "< 1k": 0.5, "1k–10k": 1, "10k–100k": 2, "100k–1M": 3, "1M+": 3.5 },
   rpcSetup: {
@@ -151,7 +151,7 @@ const RISK: Record<string, Record<string, number>> = {
     "Stale balances or stale UI reads": 2,
     "Slow page loads / slow event updates": 1.5,
     "Failed mints, fills, or claims at peak": 2.8,
-    "Nothing major — just nice-to-haves": 0.3,
+    "Nothing major, just nice-to-haves": 0.3,
   },
   region: {
     "Mostly US": 0.5,
@@ -185,13 +185,13 @@ function recos(answers: Answers): string[] {
   const r: string[] = [];
   if (["No / hardcoded zero", "Static value (same for every tx)"].includes(answers.priorityFees)) {
     r.push(
-      "Look at dynamic priority-fee estimation from a serialized-transaction-aware API rather than static or zero fees — this is one of the most cited reasons Solana txns fail to land at peak."
+      "Look at dynamic priority-fee estimation from a serialized-transaction-aware API rather than static or zero fees. This is one of the most cited reasons Solana txns fail to land at peak."
     );
   }
   if (answers.stakedConn === "No" || answers.stakedConn === "Not sure") {
     if (
       ["DeFi (DEX, lending, perps)", "Trading firm / market maker", "NFT / marketplace"].includes(answers.appType) ||
-      answers.txnSensitivity === "High (every slot matters — perps, sniping, MEV)"
+      answers.txnSensitivity === "High (every slot matters: perps, sniping, MEV)"
     ) {
       r.push(
         "If transaction landing actually matters to your business, staked connections (available on paid Solana RPC plans) are worth comparing against your current send path."
@@ -200,7 +200,7 @@ function recos(answers: Answers): string[] {
   }
   if (["Single shared public RPC", "Single paid provider, single region"].includes(answers.rpcSetup)) {
     r.push(
-      "A single-region RPC is a single point of failure during regional issues or DDoS events — even a soft second provider with circuit-breaking would meaningfully reduce downside risk."
+      "A single-region RPC is a single point of failure during regional issues or DDoS events. Even a soft second provider with circuit-breaking would meaningfully reduce downside risk."
     );
   }
   if (answers.stream === "Polling getSignaturesForAddress / getProgramAccounts") {
@@ -230,7 +230,7 @@ function recos(answers: Answers): string[] {
   }
   if (answers.region === "Truly global" || answers.region === "Mostly Asia" || answers.region === "LatAm / MENA / mixed") {
     r.push(
-      "Global users see real RPC latency variance. Multi-region RPC routing — even just two regions with a health check — usually shows up in user-perceived speed."
+      "Global users see real RPC latency variance. Multi-region RPC routing, even just two regions with a health check, usually shows up in user-perceived speed."
     );
   }
   if (answers.appType === "Trading firm / market maker") {
@@ -240,7 +240,7 @@ function recos(answers: Answers): string[] {
   }
   if (answers.txnVolume === "1M+" || answers.txnVolume === "100k–1M") {
     r.push(
-      "At your volume, request-class separation (reads vs sends vs streams) becomes meaningful — co-locating everything on one endpoint magnifies any single failure mode."
+      "At your volume, request-class separation (reads vs sends vs streams) becomes meaningful. Co-locating everything on one endpoint magnifies any single failure mode."
     );
   }
   return Array.from(new Set(r)).slice(0, 5);
@@ -249,7 +249,7 @@ function recos(answers: Answers): string[] {
 function brief(answers: Answers, pct: number, b: Band, recosList: string[]) {
   const lines: string[] = [];
   lines.push(`Solana Transaction Landing & RPC Reliability Risk Mapper`);
-  lines.push(`Risk score: ${pct} / 100 — ${b.label}`);
+  lines.push(`Risk score: ${pct} / 100 · ${b.label}`);
   lines.push(``);
   lines.push(`Profile:`);
   for (const q of Q) {
