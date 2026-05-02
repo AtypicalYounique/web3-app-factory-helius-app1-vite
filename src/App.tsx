@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState, type CSSProperties } from "react";
+import { BRAND } from "./brand";
 
 const APP_TITLE = "Solana Transaction Landing & RPC Reliability Risk Mapper";
 const APP_TAGLINE =
@@ -317,6 +318,17 @@ export default function App() {
 
   return (
     <div className="wrap">
+      <header className="brand-bar">
+        <a
+          href={BRAND.homepage}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="brand-logo"
+          aria-label={BRAND.company}
+          dangerouslySetInnerHTML={{ __html: BRAND.logoSvg }}
+        />
+        <span className="brand-chip">Independent diagnostic</span>
+      </header>
       <div className="eyebrow">For Solana dApp & trading teams · Pattern-based</div>
       <h1>{APP_TITLE}</h1>
       <p className="lede">{APP_TAGLINE}</p>
@@ -428,6 +440,8 @@ export default function App() {
         This is a directional, pattern-based diagnostic. It does not measure your stack and it does not claim anything about specific providers. It draws on patterns publicly discussed by Solana infrastructure teams (priority fees, staked connections, multi-region RPC, Geyser/gRPC-class streaming, Webhooks). Treat it as a conversation starter, not a verdict.
         <div className="branding">Built as a value-first artifact. No accounts, no data collected, runs locally in your browser.</div>
       </div>
+
+      <footer className="attribution">{BRAND.attribution}</footer>
 
       <div className={"toast " + (toast ? "show" : "")}>Brief copied to clipboard</div>
     </div>
